@@ -1,0 +1,61 @@
+{
+  "id": "madihu",
+  "title": "Madihu",
+  "cover": "img/madihu/cover/cover.webp",
+  "tracks": [
+    {
+      "title": "Có Em",
+      "artist": "Madihu và Low G",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782105081/9_Madihu_-_C%C3%B3_em_Feat._Low_G_Official_MV_-_YouTube_xwwzft.mp3",
+      "art": "img/madihu/co-em.webp"
+    },
+    {
+      "title": "Vì Anh Đâu Có Biết",
+      "artist": "Madihu và Vũ",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782105103/9_V%C3%AC_Anh_%C4%90%C3%A2u_C%C3%B3_Bi%E1%BA%BFt_-_Madihu_Feat._V%C5%A9._-_Official_MV_-_YouTube_aokipl.mp3",
+      "art": "img/madihu/vi-anh-dau-co-biet.webp"
+    },
+    {
+      "title": "Không Còn Em",
+      "artist": "Madihu",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782105121/9_Madihu_-_Kh%C3%B4ng_Con_Em_-_Official_Music_Video_-_YouTube_ojml4c.mp3",
+      "art": "img/madihu/khong-con-em.webp"
+    },
+    {
+      "title": "Có Khi",
+      "artist": "Madihu và Low G",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782105139/9_Madihu_-_C%C3%B3_Khi_Feat._Low_G_-_Official_MV_-_YouTube_gignah.mp3",
+      "art": "img/madihu/co-khi.webp"
+    },
+    {
+      "title": "Để Anh Không",
+      "artist": "Madihu",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782105219/9_Madihu_-_%C4%90%C3%AA_Anh_Kh%C3%B4ng_-_Official_Music_Video_-_YouTube_xbgwbd.mp3",
+      "art": "img/madihu/de-anh-khong.webp"
+    },
+    {
+      "title": "EM ĐÂU CẦN",
+      "artist": "Madihu và tlinh",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782105255/9_Madihu_-_Em_%C4%90%C3%A2u_C%E1%BA%A7n_Feat._tlinh_Lyrics_Video_-_YouTube_zktgoh.mp3",
+      "art": "img/madihu/em-dau-can.webp"
+    },
+    {
+      "title": "hai triệu năm - Madihu mix",
+      "artist": "Đen, Biên và Madihu",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782105284/9_%C4%90en_-_hai_tri%E1%BB%87u_n%C4%83m_ft._Bi%C3%AAn_m-v_-_YouTube_p9y2ib.mp3",
+      "art": "img/madihu/hai-trieu-nam.webp"
+    },
+    {
+      "title": "Thôi hẹn em",
+      "artist": "Madihu",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782105305/9_Madihu_-_Th%C3%B4i_h%E1%BA%B9n_em_Official_Music_Video_-_YouTube_i7lubo.mp3",
+      "art": "img/madihu/thoi-hen-em.webp"
+    },
+    {
+      "title": "Vườn mây",
+      "artist": "Madihu và Mạc Mai Sương",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782105323/9_Madihu_-_V%C6%B0%E1%BB%9Dn_m%C3%A2y_Feat._M%E1%BA%A1c_Mai_S%C6%B0%C6%A1ng_Official_MV_-_YouTube_vsyorj.mp3",
+      "art": "img/madihu/vuon-may.webp"
+    }
+  ]
+}

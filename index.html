@@ -1,246 +1,202 @@
-<!doctype html> <html lang=vi> <head> <meta charset=UTF-8> <meta name=viewport content="width=device-width,initial-scale=1"> <title>Pydinary – Music Player: The community music for everyone.</title> <link rel=icon type=image/png href=/favicon.png> <link rel=manifest href=/manifest.json> <meta name=theme-color content="#0e0e0e"> <meta name=mobile-web-app-capable content=yes> <meta name=apple-mobile-web-app-capable content=yes> <meta name=apple-mobile-web-app-status-bar-style content=black-translucent> <meta name=apple-mobile-web-app-title content=Pydinary> <link rel=apple-touch-icon href=/icon-192.png> <style>:root{--bg:#0e0e0e;--surface:#181818;--surface-2:#202020;--border:rgba(255,255,255,0.07);--text:#ffffff;--text-dim:rgba(255,255,255,0.55);--text-faint:rgba(255,255,255,0.35);--sb-w:64px;--bn-h:56px;--mp-h:72px;--blob-1:#8b1e6e;--blob-2:#5b2a9e;--blob-3:#2e1f5e;--blob-4:#c2348a;--blob-5:#1c1530}@property --blob-1{syntax:'<color>';inherits:true;initial-value:#8b1e6e}@property --blob-2{syntax:'<color>';inherits:true;initial-value:#5b2a9e}@property --blob-3{syntax:'<color>';inherits:true;initial-value:#2e1f5e}@property --blob-4{syntax:'<color>';inherits:true;initial-value:#c2348a}@property --blob-5{syntax:'<color>';inherits:true;initial-value:#1c1530}*,::after,::before{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);overflow:hidden;height:100vh;width:100vw}#sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sb-w);background:#111;border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;padding:1.2rem 0 1.5rem;z-index:40}.sb-logo{width:34px;height:34px;flex-shrink:0}.sb-logo img{width:100%;height:100%;object-fit:contain;border-radius:8px}.sb-nav{position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:4px}.nav-btn{width:44px;height:44px;border-radius:10px;background:0 0;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-faint);transition:color .18s,background .18s;position:relative}.nav-btn:hover{color:var(--text);background:rgba(255,255,255,.07)}.nav-btn.active{color:var(--text);background:rgba(255,255,255,.1)}.nav-btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke-width .18s}.nav-btn.active svg{stroke-width:2.3}.nav-btn::after{content:attr(data-tip);position:absolute;left:calc(100% + 10px);top:50%;transform:translateY(-50%);background:#2c2c2c;color:#fff;font-size:.72rem;font-weight:600;padding:.3rem .65rem;border-radius:6px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s;z-index:200}.nav-btn:hover::after{opacity:1}#appMain{position:fixed;left:var(--sb-w);top:0;right:0;bottom:0}.screen{display:none;position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch}.screen.active{display:block}.s-inner{max-width:880px;margin:0 auto;padding:2.5rem 2rem 3rem}.page-title{font-size:1.6rem;font-weight:700;letter-spacing:-.3px;margin-bottom:2rem}.section-label{font-size:.72rem;font-weight:700;letter-spacing:.65px;text-transform:uppercase;color:var(--text-faint);margin:0 0 .85rem}.home-section{margin-bottom:2.8rem}.state-msg{color:var(--text-faint);font-size:.85rem;line-height:1.6;padding:.3rem 0}.tracks-row{display:flex;gap:1rem;overflow-x:auto;padding-bottom:.5rem;scrollbar-width:none}.tracks-row::-webkit-scrollbar{display:none}.tr-card{flex:0 0 auto;width:138px;background:0 0;border:none;cursor:pointer;text-align:left;color:inherit;padding:0;display:flex;flex-direction:column;gap:.5rem;font-family:inherit}.tr-card-art{width:138px;height:138px;border-radius:10px;object-fit:cover;box-shadow:0 8px 20px -6px rgba(0,0,0,.65);transition:transform .2s}.tr-card:hover .tr-card-art{transform:scale(1.03)}.tr-card-name{font-size:.82rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tr-card-sub{font-size:.73rem;color:var(--text-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:1rem}.pl-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.85rem;cursor:pointer;color:inherit;text-align:left;display:flex;flex-direction:column;gap:.6rem;font-family:inherit;border:none;transition:background .2s,transform .2s}.pl-card:hover{background:var(--surface-2);transform:translateY(-2px)}.pl-card-cover{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;box-shadow:0 10px 22px -8px rgba(0,0,0,.65)}.pl-card-name{font-size:.88rem;font-weight:600}.pl-card-count{font-size:.74rem;color:var(--text-dim)}.search-sticky{position:sticky;top:0;background:var(--bg);padding:2rem 0 1rem;z-index:5}.search-box{display:flex;align-items:center;gap:.75rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0 1rem;transition:border-color .2s}.search-box:focus-within{border-color:rgba(255,255,255,.25)}.search-box>svg{width:17px;height:17px;flex-shrink:0;fill:none;stroke:var(--text-faint);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}#searchInput{flex:1;background:0 0;border:none;outline:0;color:var(--text);font-size:.93rem;padding:.82rem 0;font-family:inherit}#searchInput::placeholder{color:var(--text-faint)}#searchClear{background:0 0;border:none;cursor:pointer;color:var(--text-faint);display:none;padding:0;line-height:1}#searchClear:hover{color:var(--text)}#searchClear svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}#searchResults{padding-top:.5rem}.search-group{margin-bottom:2rem}.search-empty{text-align:center;color:var(--text-faint);font-size:.88rem;padding:3rem 0}.back-btn{display:inline-flex;align-items:center;gap:.4rem;background:0 0;border:none;cursor:pointer;color:var(--text-dim);font-size:.85rem;font-weight:600;padding:.5rem 0;margin-bottom:1.5rem;font-family:inherit;transition:color .2s}.back-btn:hover{color:var(--text)}.back-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.detail-header{display:flex;align-items:flex-end;gap:1.5rem;margin-bottom:1.8rem}.detail-cover-img{width:160px;height:160px;object-fit:cover;border-radius:12px;flex-shrink:0;box-shadow:0 20px 40px -10px rgba(0,0,0,.75)}.detail-meta h2{font-size:1.75rem;font-weight:700;letter-spacing:-.3px;margin-bottom:.35rem}.detail-sub{font-size:.83rem;color:var(--text-dim)}.play-all-btn{background:#fff;color:#0e0e0e;border:none;border-radius:999px;padding:.55rem 1.4rem;font-size:.87rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;font-family:inherit;margin-bottom:1.5rem;transition:opacity .2s,transform .15s}.play-all-btn:hover{opacity:.88;transform:scale(1.02)}.play-all-btn svg{width:13px;height:13px;fill:currentColor}.track-list{display:flex;flex-direction:column;gap:2px}.tr-row{display:flex;align-items:center;gap:.85rem;padding:.55rem .6rem;border-radius:8px;cursor:pointer;background:0 0;border:none;color:inherit;font-family:inherit;text-align:left;width:100%;transition:background .15s}.tr-row:hover{background:var(--surface-2)}.tr-row-num{width:22px;text-align:right;font-size:.79rem;color:var(--text-faint);flex-shrink:0;font-variant-numeric:tabular-nums}.tr-row-art{width:42px;height:42px;border-radius:6px;object-fit:cover;flex-shrink:0}.tr-row-info{flex:1;min-width:0}.tr-row-title{display:block;font-size:.88rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tr-row-artist{display:block;font-size:.76rem;color:var(--text-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tr-row-play{width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:0;transition:opacity .15s;color:var(--text-dim)}.tr-row:hover .tr-row-play{opacity:1}.tr-row-play svg{width:13px;height:13px;fill:currentColor}#miniPlayer{position:fixed;left:calc(var(--sb-w) + 1rem);right:1rem;bottom:1rem;height:var(--mp-h);background:rgba(22,22,26,.78);backdrop-filter:blur(32px) saturate(1.6);-webkit-backdrop-filter:blur(32px) saturate(1.6);border:1px solid rgba(255,255,255,.09);border-radius:18px;box-shadow:0 8px 32px rgba(0,0,0,.55),0 2px 8px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);display:flex;align-items:center;padding:0 1rem;gap:1rem;z-index:50;transform:translateY(calc(100% + 1.5rem));transition:transform .38s cubic-bezier(.4,0,.2,1)}body.has-track #miniPlayer{transform:translateY(0)}.mp-left{flex:1;min-width:0;display:flex;align-items:center;gap:.85rem;cursor:pointer}.mp-art{width:46px;height:46px;border-radius:6px;object-fit:cover;flex-shrink:0;box-shadow:0 4px 14px -4px rgba(0,0,0,.55)}.mp-info{flex:1;min-width:0}.mp-title{display:block;font-size:.875rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mp-artist{display:block;font-size:.75rem;color:var(--text-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mp-controls{display:flex;align-items:center;gap:.2rem;flex-shrink:0}.mp-btn{background:0 0;border:none;cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:var(--text-dim);border-radius:50%;transition:color .18s,background .18s}.mp-btn:hover{color:var(--text);background:rgba(255,255,255,.07)}.mp-btn svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;width:18px;height:18px}#mpPlayPause{width:40px;height:40px;background:#fff;border-radius:50%;color:#0e0e0e}#mpPlayPause:hover{background:rgba(255,255,255,.88)}#mpPlayPause svg{width:18px;height:18px;fill:currentColor;stroke:none}.mp-right{flex-shrink:0}#mpExpand{background:0 0;border:none;cursor:pointer;width:34px;height:34px;display:flex;align-items:center;justify-content:center;color:var(--text-faint);border-radius:50%;transition:color .18s,background .18s}#mpExpand:hover{color:var(--text);background:rgba(255,255,255,.07)}#mpExpand svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}#screenFullscreen{position:fixed;inset:0;z-index:100;background:#0b0613;display:none}#screenFullscreen.active{display:flex;justify-content:center;align-items:center}.fp-content-row{display:flex;align-items:center;justify-content:center;width:100%;max-width:1180px;padding:0 2.5rem;box-sizing:border-box}.aurora-bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#0b0613}.aurora-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,0,0,0) 40%,rgba(0,0,0,.5) 100%);z-index:5;pointer-events:none}#neatCanvas{position:absolute;inset:0;width:100%;height:100%;display:none}.aurora-bg.neat-mode .aurora-blob{display:none}.aurora-bg.neat-mode #neatCanvas{display:block}.aurora-blob{position:absolute;border-radius:50%;filter:blur(110px);opacity:.75;will-change:transform;mix-blend-mode:screen;transition:--blob-1 1.4s ease,--blob-2 1.4s ease,--blob-3 1.4s ease,--blob-4 1.4s ease,--blob-5 1.4s ease}.blob-1{width:65vw;height:65vw;max-width:880px;max-height:880px;top:-10%;left:-10%;background:radial-gradient(circle,var(--blob-1) 0,transparent 70%);animation:drift-1 13s ease-in-out infinite}.blob-2{width:60vw;height:60vw;max-width:820px;max-height:820px;top:10%;right:-15%;background:radial-gradient(circle,var(--blob-2) 0,transparent 70%);animation:drift-2 16s ease-in-out infinite}.blob-3{width:55vw;height:55vw;max-width:760px;max-height:760px;bottom:-15%;left:15%;background:radial-gradient(circle,var(--blob-3) 0,transparent 70%);animation:drift-3 18s ease-in-out infinite}.blob-4{width:48vw;height:48vw;max-width:660px;max-height:660px;bottom:-10%;right:5%;background:radial-gradient(circle,var(--blob-4) 0,transparent 70%);opacity:.55;animation:drift-4 14.5s ease-in-out infinite}.blob-5{width:40vw;height:40vw;max-width:560px;max-height:560px;top:38%;left:38%;background:radial-gradient(circle,var(--blob-5) 0,transparent 70%);opacity:.6;animation:drift-5 11s ease-in-out infinite}@keyframes drift-1{0%{transform:translate(0,0) scale(1) rotate(0)}22%{transform:translate(22%,14%) scale(1.25) rotate(8deg)}41%{transform:translate(10%,30%) scale(.95) rotate(-6deg)}63%{transform:translate(-16%,18%) scale(1.18) rotate(10deg)}81%{transform:translate(-8%,-10%) scale(1.05) rotate(-4deg)}100%{transform:translate(0,0) scale(1) rotate(0)}}@keyframes drift-2{0%{transform:translate(0,0) scale(1) rotate(0)}19%{transform:translate(-20%,16%) scale(1.2) rotate(-10deg)}38%{transform:translate(-30%,-8%) scale(.92) rotate(6deg)}57%{transform:translate(-12%,-24%) scale(1.22) rotate(-8deg)}79%{transform:translate(8%,-6%) scale(1.05) rotate(5deg)}100%{transform:translate(0,0) scale(1) rotate(0)}}@keyframes drift-3{0%{transform:translate(0,0) scale(1) rotate(0)}24%{transform:translate(18%,-22%) scale(1.28) rotate(9deg)}46%{transform:translate(32%,-6%) scale(.9) rotate(-7deg)}68%{transform:translate(14%,14%) scale(1.15) rotate(11deg)}85%{transform:translate(-10%,6%) scale(1.05) rotate(-5deg)}100%{transform:translate(0,0) scale(1) rotate(0)}}@keyframes drift-4{0%{transform:translate(0,0) scale(1) rotate(0)}27%{transform:translate(-22%,-18%) scale(1.22) rotate(-9deg)}49%{transform:translate(-8%,-32%) scale(.93) rotate(7deg)}70%{transform:translate(16%,-14%) scale(1.2) rotate(-10deg)}88%{transform:translate(10%,8%) scale(1.04) rotate(4deg)}100%{transform:translate(0,0) scale(1) rotate(0)}}@keyframes drift-5{0%{transform:translate(-50%,-50%) scale(1) rotate(0)}21%{transform:translate(-65%,-30%) scale(1.3) rotate(12deg)}44%{transform:translate(-35%,-62%) scale(.88) rotate(-9deg)}66%{transform:translate(-60%,-65%) scale(1.2) rotate(8deg)}85%{transform:translate(-42%,-38%) scale(1.06) rotate(-6deg)}100%{transform:translate(-50%,-50%) scale(1) rotate(0)}}@media(prefers-reduced-motion:reduce){.aurora-blob{animation:none!important}}.fp-collapse{position:absolute;top:1.5rem;right:1.5rem;z-index:10;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);cursor:pointer;transition:background .2s,color .2s,transform .2s}.fp-collapse:hover{background:rgba(255,255,255,.13);color:#fff;transform:scale(1.06)}.fp-collapse svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.fp-dev{position:absolute;bottom:1.5rem;right:1.75rem;z-index:10;font-size:.78rem;font-weight:500;color:rgba(255,255,255,.27);cursor:default;transition:color .3s}.fp-dev:hover{color:rgba(255,255,255,.6)}.fp-lyrics-toggle{display:none;position:absolute;top:1.5rem;right:4.75rem;z-index:10;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(12px);align-items:center;justify-content:center;color:rgba(255,255,255,.7);cursor:pointer;transition:background .2s,color .2s,transform .2s}.fp-lyrics-toggle:hover{background:rgba(255,255,255,.13);color:#fff;transform:scale(1.06)}.fp-lyrics-toggle.active{background:#fff;color:#0b0613}.fp-lyrics-toggle svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}#screenFullscreen.lyrics-open .fp-content-row{gap:2.5rem}.lyrics-panel{display:none;position:relative;z-index:2;width:100%;max-width:480px;align-self:flex-start;overflow:hidden;height:min(52vh,420px);padding:2.75rem 0;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 2.75rem,#000 calc(100% - 2.75rem),transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 2.75rem,#000 calc(100% - 2.75rem),transparent 100%)}#screenFullscreen.lyrics-open .lyrics-panel{display:block;max-width:580px}.lyrics-list{display:flex;flex-direction:column;gap:.2rem;will-change:transform;transition:transform .45s cubic-bezier(.4,0,.2,1)}.lyric-line{font-size:1.25rem;font-weight:700;line-height:1.6;color:#fff;margin:0;padding:.3rem 0;cursor:pointer;opacity:.15;transform:scale(1);transform-origin:left center;transition:opacity .4s ease,transform .35s cubic-bezier(.4,0,.2,1);overflow-wrap:break-word;word-break:normal}.lyric-line.active{opacity:1;transform:scale(1.24)}.lyric-line.upcoming-1{opacity:.55}.lyric-line.upcoming-2{opacity:.3}.lyric-line.upcoming-3{opacity:.15}@media(max-width:768px){#screenFullscreen.lyrics-open .fp-content-row{flex-direction:column;justify-content:flex-start;padding-top:4.5rem;gap:1.5rem}#screenFullscreen.lyrics-open .album-art-wrapper{display:none}#screenFullscreen.lyrics-open .track-info{margin-bottom:.8rem}#screenFullscreen.lyrics-open .lyrics-panel{max-width:100%;align-self:stretch}.lyric-line{font-size:1.1rem}}.fp-player{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;max-width:480px;padding:0 1.5rem;transition:max-width .35s ease}.album-art-wrapper{width:min(52vh,380px);height:min(52vh,380px);margin-bottom:2rem}.album-art{width:100%;height:100%;object-fit:cover;border-radius:26px;box-shadow:0 34px 70px -15px rgba(0,0,0,.65),0 14px 28px -8px rgba(0,0,0,.5);display:block;transition:opacity .4s}.track-info{text-align:center;margin-bottom:1.8rem}.fp-title{font-size:1.5rem;font-weight:600;margin:0 0 .3rem;letter-spacing:.1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:80vw}.fp-artist{font-size:1rem;font-weight:400;color:var(--text-dim);margin:0}.progress-container{display:flex;align-items:center;gap:12px;width:100%;font-size:.78rem;color:var(--text-faint);font-variant-numeric:tabular-nums;margin-bottom:.8rem}.progress-slider{flex-grow:1;-webkit-appearance:none;appearance:none;background:rgba(255,255,255,.18);height:3px;border-radius:2px;outline:0;cursor:pointer}.progress-slider::-webkit-slider-runnable-track{height:3px;border-radius:2px;background:linear-gradient(to right,#fff var(--progress,0),rgba(255,255,255,.18) var(--progress,0))}.progress-slider::-moz-range-track{height:3px;border-radius:2px;background:rgba(255,255,255,.18)}.progress-slider::-moz-range-progress{height:3px;border-radius:2px;background:#fff}.progress-slider::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;border-radius:50%;background:#fff;cursor:pointer;margin-top:-4px;opacity:0;transition:opacity .2s}.progress-slider::-moz-range-thumb{width:11px;height:11px;border:none;border-radius:50%;background:#fff;cursor:pointer;opacity:0;transition:opacity .2s}.progress-container:hover .progress-slider::-webkit-slider-thumb,.progress-slider:active::-webkit-slider-thumb{opacity:1}.progress-container:hover .progress-slider::-moz-range-thumb,.progress-slider:active::-moz-range-thumb{opacity:1}.controls-row{display:flex;align-items:center;justify-content:center;gap:.75rem;width:100%;margin-bottom:.8rem}.icon-btn{background:0 0;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;width:46px;height:46px;padding:0;color:rgba(255,255,255,.75);transition:color .2s,transform .15s}.icon-btn:hover{color:#fff;transform:scale(1.08)}.icon-btn:active{transform:scale(.92)}.icon-btn svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.play-btn{background:0 0;border:none;width:64px;height:64px;border-radius:50%;cursor:pointer;display:flex;justify-content:center;align-items:center;color:rgba(255,255,255,.92);transition:color .2s,transform .2s cubic-bezier(.4,0,.2,1)}.play-btn:hover{color:#fff;transform:scale(1.08)}.play-btn:active{transform:scale(.92)}.play-btn svg{width:34px;height:34px;fill:currentColor;margin-left:0}.play-btn.is-playing svg{margin-left:0}.loop-btn{background:0 0;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;width:30px;height:30px;padding:0;color:rgba(255,255,255,.38);transition:color .2s}.loop-btn:hover{color:rgba(255,255,255,.75)}.loop-btn.active{color:#fff}.loop-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.volume-row{display:flex;align-items:center;gap:12px;width:100%;max-width:250px;color:rgba(255,255,255,.38)}.volume-row svg{width:17px;height:17px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.volume-slider{flex-grow:1;-webkit-appearance:none;appearance:none;background:rgba(255,255,255,.18);height:3px;border-radius:2px;outline:0;cursor:pointer}.volume-slider::-webkit-slider-runnable-track{height:3px;border-radius:2px;background:linear-gradient(to right,rgba(255,255,255,.7) var(--vol,70%),rgba(255,255,255,.18) var(--vol,70%))}.volume-slider::-moz-range-track{height:3px;border-radius:2px;background:rgba(255,255,255,.18)}.volume-slider::-moz-range-progress{height:3px;border-radius:2px;background:rgba(255,255,255,.7)}.volume-slider::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:10px;border-radius:50%;background:#fff;cursor:pointer;margin-top:-3.5px;opacity:0;transition:opacity .2s}.volume-slider::-moz-range-thumb{width:10px;height:10px;border:none;border-radius:50%;background:#fff;cursor:pointer;opacity:0;transition:opacity .2s}.volume-row:hover .volume-slider::-moz-range-thumb,.volume-row:hover .volume-slider::-webkit-slider-thumb{opacity:1}@media(max-width:480px){.album-art-wrapper{width:min(54vh,300px);height:min(54vh,300px);margin-bottom:1.5rem}.fp-title{font-size:1.25rem}.controls-row{gap:.6rem}.play-btn{width:56px;height:56px}.play-btn svg{width:30px;height:30px}.icon-btn svg{width:26px;height:26px}}@media(max-height:700px){.album-art-wrapper{width:min(40vh,300px);height:min(40vh,300px);margin-bottom:1.3rem}.track-info{margin-bottom:1.2rem}.progress-container{margin-bottom:.6rem}.controls-row{margin-bottom:.6rem}}@media(max-width:768px){#sidebar{top:auto;bottom:0;left:0;right:0;width:100%;height:var(--bn-h);flex-direction:row;padding:0;border-right:none;border-top:1px solid var(--border)}.sb-logo{display:none}.sb-nav{position:static;transform:none;flex-direction:row;width:100%;height:100%;justify-content:space-around;align-items:center;padding:0 .5rem;gap:0}.nav-btn::after{display:none}#appMain{left:0;bottom:var(--bn-h)}#miniPlayer{left:.65rem;right:.65rem;bottom:calc(var(--bn-h) + .65rem);border-radius:14px;transform:translateY(calc(100% + var(--bn-h) + 2rem))}body.has-track #miniPlayer{transform:translateY(0)}.detail-cover-img{width:110px;height:110px}.detail-meta h2{font-size:1.3rem}.pl-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.85rem}.tr-card,.tr-card-art{width:120px}.tr-card-art{height:120px}.s-inner{padding:1.5rem 1rem 2rem}}body[data-screen=fullscreen] #miniPlayer,body[data-screen=fullscreen] #sidebar{display:none}</style> </head> <body data-screen=home> <nav id=sidebar> <div class=sb-logo> <img src=/favicon.png alt=Pydinary> </div> <div class=sb-nav> <button class="nav-btn active" data-nav=home data-tip="Trang chủ" aria-label="Trang chủ" type=button> <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg> </button> <button class=nav-btn data-nav=search data-tip="Tìm kiếm" aria-label="Tìm kiếm" type=button> <svg viewBox="0 0 24 24"><circle cx=11 cy=11 r=8 /><path d="M21 21l-4.35-4.35"/></svg> </button> <button class=nav-btn data-nav=playlists data-tip="Playlist & Nghệ sĩ" aria-label="Playlist & Nghệ sĩ" type=button> <svg viewBox="0 0 24 24"><rect x=3 y=3 width=7 height=7 rx=1 /><rect x=14 y=3 width=7 height=7 rx=1 /><rect x=3 y=14 width=7 height=7 rx=1 /><rect x=14 y=14 width=7 height=7 rx=1 /></svg> </button> </div> </nav> <div id=appMain> <main class="screen active" id=screenHome> <div class=s-inner> <h1 class=page-title>Xin chào 👋</h1> <section class=home-section> <p class=section-label>Hoạt động gần đây</p> <div class=tracks-row id=recentList></div> </section> <section class=home-section> <p class=section-label>Gợi ý cho bạn</p> <div class=pl-grid id=suggestList></div> </section> </div> </main> <main class=screen id=screenSearch> <div class=s-inner> <div class=search-sticky> <div class=search-box> <svg viewBox="0 0 24 24" aria-hidden=true><circle cx=11 cy=11 r=8 /><path d="M21 21l-4.35-4.35"/></svg> <input type=search id=searchInput placeholder="Tìm bài hát hoặc playlist…" autocomplete=off spellcheck=false> <button id=searchClear aria-label=Xóa type=button> <svg viewBox="0 0 24 24"><line x1=18 y1=6 x2=6 y2=18 /><line x1=6 y1=6 x2=18 y2=18 /></svg> </button> </div> </div> <div id=searchResults></div> </div> </main> <main class=screen id=screenPlaylists> <div class=s-inner> <h1 class=page-title>Playlist & Nghệ sĩ</h1> <div class=pl-grid id=allPlaylistsGrid></div> </div> </main> <main class=screen id=screenPlaylistDetail> <div class=s-inner> <button class=back-btn id=detailBackBtn type=button> <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Quay lại </button> <div class=detail-header> <img class=detail-cover-img id=detailCover alt=""> <div class=detail-meta> <h2 id=detailTitle></h2> <p class=detail-sub id=detailCount></p> </div> </div> <button class=play-all-btn id=playAllBtn type=button> <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Phát tất cả </button> <div class=track-list id=detailTrackList></div> </div> </main> </div><!-- #appMain --> <div id=miniPlayer role=region aria-label="Đang phát"> <div class=mp-left id=mpLeft role=button tabindex=0 aria-label="Mở trình phát"> <img class=mp-art id=mpArt src="" alt=""> <div class=mp-info> <span class=mp-title id=mpTitle>—</span> <span class=mp-artist id=mpArtist>—</span> </div> </div> <div class=mp-controls> <button class=mp-btn id=mpPrev aria-label="Bài trước" type=button> <svg viewBox="0 0 24 24"><polygon points="19 20 9 12 19 4 19 20"/><line x1=5 y1=19 x2=5 y2=5 /></svg> </button> <button class=mp-btn id=mpPlayPause aria-label="Phát / Tạm dừng" type=button> <svg id=mp-play-icon viewBox="0 0 24 24" aria-hidden=true><path d="M8 5v14l11-7z"/></svg> <svg id=mp-pause-icon viewBox="0 0 24 24" style=display:none aria-hidden=true><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg> </button> <button class=mp-btn id=mpNext aria-label="Bài tiếp theo" type=button> <svg viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"/><line x1=19 y1=5 x2=19 y2=19 /></svg> </button> </div> <div class=mp-right> <button id=mpExpand aria-label="Mở toàn màn hình" type=button> <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1=21 y1=3 x2=14 y2=10 /><line x1=3 y1=21 x2=10 y2=14 /></svg> </button> </div> </div> <div id=screenFullscreen> <div class=aurora-bg id=auroraBg> <canvas id=neatCanvas></canvas> <div class="aurora-blob blob-1"></div> <div class="aurora-blob blob-2"></div> <div class="aurora-blob blob-3"></div> <div class="aurora-blob blob-4"></div> <div class="aurora-blob blob-5"></div> </div> <button class=fp-collapse id=fpCollapse aria-label="Thu nhỏ" type=button> <svg viewBox="0 0 24 24"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1=14 y1=10 x2=21 y2=3 /><line x1=3 y1=21 x2=10 y2=14 /></svg> </button> <span class=fp-dev>Dev: Laris</span> <button class=fp-lyrics-toggle id=lyricsToggleBtn aria-label="Lời bài hát" aria-pressed=false type=button style=display:none> <svg viewBox="0 0 24 24" aria-hidden=true><path d="M4 6h16"/><path d="M4 12h11"/><path d="M4 18h16"/></svg> </button> <div class=fp-content-row id=fpContentRow> <div class=lyrics-panel id=lyricsPanel> <div class=lyrics-list id=lyricsList></div> </div> <div class=fp-player id=player-container> <div class=album-art-wrapper> <img class=album-art id=discArt alt="Ảnh bìa bài hát" crossorigin=anonymous> </div> <div class=track-info> <p class=fp-title id=trackTitle>—</p> <p class=fp-artist id=trackArtist>Cosmie</p> </div> <div class=progress-container> <span id=currentTime>0:00</span> <input type=range class=progress-slider id=progressSlider min=0 value=0 step=1 aria-label="Vị trí phát"> <span id=durationTime>0:00</span> </div> <div class=controls-row> <button class=icon-btn id=prevBtn aria-label="Bài trước" type=button> <svg viewBox="0 0 24 24"><polygon points="19 20 9 12 19 4 19 20"/><line x1=5 y1=19 x2=5 y2=5 /></svg> </button> <button class=play-btn id=playPauseBtn aria-label="Phát / Tạm dừng" type=button> <svg id=play-icon viewBox="0 0 24 24" aria-hidden=true><path d="M8 5v14l11-7z"/></svg> <svg id=pause-icon viewBox="0 0 24 24" style=display:none aria-hidden=true><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg> </button> <button class=icon-btn id=nextBtn aria-label="Bài tiếp theo" type=button> <svg viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"/><line x1=19 y1=5 x2=19 y2=19 /></svg> </button> </div> <div class=volume-row> <svg viewBox="0 0 24 24" aria-hidden=true><path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 0 1 0 7.07"/></svg> <input type=range class=volume-slider id=volumeSlider min=0 max=1 step=0.01 value=0.7 aria-label="Âm lượng"> <button class=loop-btn id=loopBtn aria-label="Lặp lại" aria-pressed=false type=button> <svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg> </button> </div> </div> </div> </div> <audio id=bgMusic></audio> <canvas id=colorExtractCanvas width=48 height=48 style=display:none></canvas> <script>const audio=document.getElementById("bgMusic"),playPauseBtn=document.getElementById("playPauseBtn"),playIcon=document.getElementById("play-icon"),pauseIcon=document.getElementById("pause-icon"),volumeSlider=document.getElementById("volumeSlider"),container=document.getElementById("player-container"),trackTitle=document.getElementById("trackTitle"),trackArtist=document.getElementById("trackArtist"),discArt=document.getElementById("discArt"),currentTimeEl=document.getElementById("currentTime"),durationTimeEl=document.getElementById("durationTime"),progressSlider=document.getElementById("progressSlider"),prevBtn=document.getElementById("prevBtn"),nextBtn=document.getElementById("nextBtn"),loopBtn=document.getElementById("loopBtn"),colorCanvas=document.getElementById("colorExtractCanvas"),colorCtx=colorCanvas.getContext("2d",{willReadFrequently:!0}),navBtns=document.querySelectorAll(".nav-btn"),screenFullscreen=document.getElementById("screenFullscreen"),fpContentRow=document.getElementById("fpContentRow"),fpCollapse=document.getElementById("fpCollapse"),detailBackBtn=document.getElementById("detailBackBtn"),contentScreenEls={home:document.getElementById("screenHome"),search:document.getElementById("screenSearch"),playlists:document.getElementById("screenPlaylists"),playlistDetail:document.getElementById("screenPlaylistDetail")},recentListEl=document.getElementById("recentList"),suggestListEl=document.getElementById("suggestList"),searchInput=document.getElementById("searchInput"),searchClear=document.getElementById("searchClear"),searchResults=document.getElementById("searchResults"),allPlaylistsGrid=document.getElementById("allPlaylistsGrid"),detailCover=document.getElementById("detailCover"),detailTitle=document.getElementById("detailTitle"),detailCount=document.getElementById("detailCount"),detailTrackList=document.getElementById("detailTrackList"),playAllBtn=document.getElementById("playAllBtn"),mpArt=document.getElementById("mpArt"),mpTitle=document.getElementById("mpTitle"),mpArtist=document.getElementById("mpArtist"),mpPrev=document.getElementById("mpPrev"),mpPlayPause=document.getElementById("mpPlayPause"),mpNext=document.getElementById("mpNext"),mpExpand=document.getElementById("mpExpand"),mpLeft=document.getElementById("mpLeft"),mpPlayIcon=document.getElementById("mp-play-icon"),mpPauseIcon=document.getElementById("mp-pause-icon"),DATA_INDEX_URL="data/playlists_index.json";let allPlaylists=[],dataState="loading",currentPlaylistId=null,currentPlaylistTracks=[],currentTrackIndex=0,currentDetailPl=null,prevContentScreen="home",isLooping=!1,isDraggingProgress=!1;const FALLBACK_PALETTE=["#8b1e6e","#5b2a9e","#2e1f5e","#c2348a","#1c1530"],BLOB_VARS=["--blob-1","--blob-2","--blob-3","--blob-4","--blob-5"];function rgbToHsl(e,t,n){e/=255,t/=255,n/=255;const a=Math.max(e,t,n),l=Math.min(e,t,n);let r,s,c=(a+l)/2;if(a===l)r=s=0;else{const i=a-l;switch(s=c>.5?i/(2-a-l):i/(a+l),a){case e:r=(t-n)/i+(t<n?6:0);break;case t:r=(n-e)/i+2;break;case n:r=(e-t)/i+4}r/=6}return[360*r,s,c]}function extractPalette(e){return new Promise((t=>{try{const n=48;colorCanvas.width=n,colorCanvas.height=n,colorCtx.clearRect(0,0,n,n),colorCtx.drawImage(e,0,0,n,n);const{data:a}=colorCtx.getImageData(0,0,n,n),l={};for(let e=0;e<a.length;e+=4){const t=a[e],n=a[e+1],r=a[e+2];if(a[e+3]<200)continue;const[s,c,i]=rgbToHsl(t,n,r);if(i<.08||i>.92||c<.15)continue;const o=Math.round(s/15)%24;l[o]||(l[o]={r:0,g:0,b:0,count:0,sSum:0}),l[o].r+=t,l[o].g+=n,l[o].b+=r,l[o].sSum+=c,l[o].count++}const r=Object.values(l);if(!r.length)return void t(FALLBACK_PALETTE);r.sort(((e,t)=>t.count*(t.sSum/t.count)-e.count*(e.sSum/e.count)));const s=r.slice(0,5).map((e=>`rgb(${Math.round(e.r/e.count)},${Math.round(e.g/e.count)},${Math.round(e.b/e.count)})`));for(;s.length<5;)s.push(s[s.length%Math.max(s.length,1)]||FALLBACK_PALETTE[s.length]);t(s)}catch{t(FALLBACK_PALETTE)}}))}let currentPalette = FALLBACK_PALETTE;
+<!doctype html>
+<html lang="vi">
 
-function applyAurora(palette) {
-    currentPalette = palette;
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Pydinary – Music Player: The community music for everyone.</title>
 
-    const root = document.documentElement;
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icon-192.png">
 
-    BLOB_VARS.forEach(function (varName, index) {
-        root.style.setProperty(varName, palette[index] || FALLBACK_PALETTE[index]);
-    });
+  <meta name="theme-color" content="#0e0e0e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Pydinary">
 
-    updateNeatColors(palette);
-}
-async function updateAurora(e){e.complete&&0!==e.naturalWidth?applyAurora(await extractPalette(e)):applyAurora(FALLBACK_PALETTE)}// ---------------------------------------------------------------------
-// Neat (WebGL) fullscreen background, with the existing CSS aurora blobs
-// kept as an automatic fallback when WebGL / Neat isn't available.
-//
-// Lua chon 1: Neat is created ONCE per session (the first time the user
-// opens fullscreen). After that, opening/closing fullscreen just shows or
-// hides the canvas - it is never destroyed and recreated, which is what
-// caused the black-screen bug before.
-// ---------------------------------------------------------------------
+  <!-- Nen WebGL (Neat) tai tu unpkg, nhac stream tu Cloudinary.
+       Bat tay TLS truoc de bot do tre khi mo fullscreen / phat bai dau tien. -->
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+  <link rel="dns-prefetch" href="https://res.cloudinary.com">
 
-const NEAT_SRC = "https://unpkg.com/@firecms/neat@1.0.2/dist/index.umd.js";
+  <link rel="stylesheet" href="/css/style.css">
+</head>
 
-let neatInstance = null;
-let neatScriptPromise = null;
-let neatInitPromise = null;
-let neatSupported = null;
+<body data-screen="home">
+  <nav id="sidebar">
+    <div class="sb-logo">
+      <img src="/favicon.png" alt="Pydinary">
+    </div>
+    <div class="sb-nav">
+      <button class="nav-btn active" data-nav="home" data-tip="Trang chủ" aria-label="Trang chủ" type="button">
+        <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+      </button>
+      <button class="nav-btn" data-nav="search" data-tip="Tìm kiếm" aria-label="Tìm kiếm" type="button">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      </button>
+      <button class="nav-btn" data-nav="playlists" data-tip="Playlist &amp; Nghệ sĩ" aria-label="Playlist và Nghệ sĩ" type="button">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      </button>
+    </div>
+  </nav>
 
-const neatCanvas = document.getElementById("neatCanvas");
-const auroraBg = document.getElementById("auroraBg");
+  <div id="appMain">
+    <!-- Trang chu -->
+    <main class="screen active" id="screenHome">
+      <div class="s-inner">
+        <h1 class="page-title">Xin chào 👋</h1>
+        <section class="home-section">
+          <p class="section-label">Hoạt động gần đây</p>
+          <div class="tracks-row" id="recentList"></div>
+        </section>
+        <section class="home-section">
+          <p class="section-label">Gợi ý cho bạn</p>
+          <div class="pl-grid" id="suggestList"></div>
+        </section>
+      </div>
+    </main>
 
-function toHex(color) {
-    if (!color) {
-        return "#000000";
-    }
+    <!-- Tim kiem -->
+    <main class="screen" id="screenSearch">
+      <div class="s-inner">
+        <div class="search-sticky">
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input type="search" id="searchInput" placeholder="Tìm bài hát hoặc playlist…" autocomplete="off" spellcheck="false">
+            <button id="searchClear" aria-label="Xóa" type="button">
+              <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+        <div id="searchResults"></div>
+      </div>
+    </main>
 
-    if (color[0] === "#") {
-        return color;
-    }
+    <!-- Danh sach playlist -->
+    <main class="screen" id="screenPlaylists">
+      <div class="s-inner">
+        <h1 class="page-title">Playlist &amp; Nghệ sĩ</h1>
+        <div class="pl-grid" id="allPlaylistsGrid"></div>
+      </div>
+    </main>
 
-    const match = color.match(/rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)/i);
+    <!-- Chi tiet playlist -->
+    <main class="screen" id="screenPlaylistDetail">
+      <div class="s-inner">
+        <button class="back-btn" id="detailBackBtn" type="button">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Quay lại
+        </button>
+        <div class="detail-header">
+          <img class="detail-cover-img" id="detailCover" alt="">
+          <div class="detail-meta">
+            <h2 id="detailTitle"></h2>
+            <p class="detail-sub" id="detailCount"></p>
+          </div>
+        </div>
+        <button class="play-all-btn" id="playAllBtn" type="button">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Phát tất cả
+        </button>
+        <div class="track-list" id="detailTrackList"></div>
+      </div>
+    </main>
+  </div><!-- /#appMain -->
 
-    if (!match) {
-        return "#000000";
-    }
+  <!-- Mini player -->
+  <div id="miniPlayer" role="region" aria-label="Đang phát">
+    <div class="mp-left" id="mpLeft" role="button" tabindex="0" aria-label="Mở trình phát">
+      <img class="mp-art" id="mpArt" src="" alt="">
+      <div class="mp-info">
+        <span class="mp-title" id="mpTitle">—</span>
+        <span class="mp-artist" id="mpArtist">—</span>
+      </div>
+    </div>
+    <div class="mp-controls">
+      <button class="mp-btn" id="mpPrev" aria-label="Bài trước" type="button">
+        <svg viewBox="0 0 24 24"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+      </button>
+      <button class="mp-btn" id="mpPlayPause" aria-label="Phát / Tạm dừng" type="button">
+        <svg id="mp-play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        <svg id="mp-pause-icon" viewBox="0 0 24 24" style="display:none" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </button>
+      <button class="mp-btn" id="mpNext" aria-label="Bài tiếp theo" type="button">
+        <svg viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+      </button>
+    </div>
+    <div class="mp-right">
+      <button id="mpExpand" aria-label="Mở toàn màn hình" type="button">
+        <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+      </button>
+    </div>
+  </div>
 
-    return "#" + [1, 2, 3]
-        .map(function (i) {
-            return Number(match[i]).toString(16).padStart(2, "0");
-        })
-        .join("");
-}
+  <!-- Trinh phat toan man hinh -->
+  <div id="screenFullscreen">
+    <div class="aurora-bg" id="auroraBg">
+      <canvas id="neatCanvas"></canvas>
+      <div class="aurora-blob blob-1"></div>
+      <div class="aurora-blob blob-2"></div>
+      <div class="aurora-blob blob-3"></div>
+      <div class="aurora-blob blob-4"></div>
+      <div class="aurora-blob blob-5"></div>
+    </div>
 
-function buildNeatColors(palette) {
-    return (palette || FALLBACK_PALETTE)
-        .slice(0, 5)
-        .map(function (color) {
-            return { color: toHex(color), enabled: true };
-        });
-}
+    <button class="fp-collapse" id="fpCollapse" aria-label="Thu nhỏ" type="button">
+      <svg viewBox="0 0 24 24"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+    </button>
+    <span class="fp-dev">Dev: Laris</span>
+    <button class="fp-lyrics-toggle" id="lyricsToggleBtn" aria-label="Lời bài hát" aria-pressed="false" type="button" style="display:none">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h11"/><path d="M4 18h16"/></svg>
+    </button>
 
-function loadNeatScript() {
-    if (neatScriptPromise) {
-        return neatScriptPromise;
-    }
+    <div class="fp-content-row" id="fpContentRow">
+      <div class="lyrics-panel" id="lyricsPanel">
+        <div class="lyrics-list" id="lyricsList"></div>
+      </div>
 
-    neatScriptPromise = new Promise(function (resolve, reject) {
-        if (window.neat && window.neat.NeatGradient) {
-            resolve();
-            return;
-        }
+      <div class="fp-player" id="player-container">
+        <div class="album-art-wrapper">
+          <img class="album-art" id="discArt" alt="Ảnh bìa bài hát" crossorigin="anonymous">
+        </div>
+        <div class="track-info">
+          <p class="fp-title" id="trackTitle">—</p>
+          <p class="fp-artist" id="trackArtist">Cosmie</p>
+        </div>
+        <div class="progress-container">
+          <span id="currentTime">0:00</span>
+          <input type="range" class="progress-slider" id="progressSlider" min="0" value="0" step="1" aria-label="Vị trí phát">
+          <span id="durationTime">0:00</span>
+        </div>
+        <div class="controls-row">
+          <button class="icon-btn" id="prevBtn" aria-label="Bài trước" type="button">
+            <svg viewBox="0 0 24 24"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+          </button>
+          <button class="play-btn" id="playPauseBtn" aria-label="Phát / Tạm dừng" type="button">
+            <svg id="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            <svg id="pause-icon" viewBox="0 0 24 24" style="display:none" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </button>
+          <button class="icon-btn" id="nextBtn" aria-label="Bài tiếp theo" type="button">
+            <svg viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+          </button>
+        </div>
+        <div class="volume-row">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.7" aria-label="Âm lượng">
+          <button class="loop-btn" id="loopBtn" aria-label="Lặp lại" aria-pressed="false" type="button">
+            <svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        const script = document.createElement("script");
-        script.src = NEAT_SRC;
-        script.async = true;
+  <audio id="bgMusic"></audio>
+  <canvas id="colorExtractCanvas" width="48" height="48" style="display:none"></canvas>
 
-        script.onload = function () {
-            if (window.neat && window.neat.NeatGradient) {
-                resolve();
-            } else {
-                reject(new Error("Neat global missing after script load"));
-            }
-        };
+  <script src="/js/app.js" defer></script>
+</body>
 
-        script.onerror = function () {
-            reject(new Error("Neat script failed to load"));
-        };
-
-        document.head.appendChild(script);
-    });
-
-    return neatScriptPromise;
-}
-
-function supportsWebgl() {
-    if (neatSupported !== null) {
-        return neatSupported;
-    }
-
-    try {
-        const testCanvas = document.createElement("canvas");
-        neatSupported = !!(testCanvas.getContext("webgl2") || testCanvas.getContext("webgl"));
-    } catch (error) {
-        neatSupported = false;
-    }
-
-    return neatSupported;
-}
-
-// Called every time the user opens fullscreen mode.
-function initNeat() {
-    // Already created earlier this session - just show it again.
-    if (neatInstance) {
-        auroraBg.classList.add("neat-mode");
-        return;
-    }
-
-    // We already tried and it didn't work out - stick with the CSS fallback.
-    if (neatSupported === false) {
-        return;
-    }
-
-    // Already in the middle of loading/creating it - nothing else to do.
-    if (neatInitPromise) {
-        return;
-    }
-
-    if (!supportsWebgl()) {
-        neatSupported = false;
-        return;
-    }
-
-    neatInitPromise = loadNeatScript()
-        .then(createNeatInstance)
-        .catch(function (error) {
-            console.warn("Khong tai duoc Neat, dung CSS aurora fallback:", error);
-            neatSupported = false;
-        });
-}
-
-function createNeatInstance() {
-    try {
-        neatInstance = new window.neat.NeatGradient({
-            ref: neatCanvas,
-            colors: buildNeatColors(currentPalette),
-            speed: 1.1,
-            horizontalPressure: 3,
-            verticalPressure: 4,
-            waveFrequencyX: 2,
-            waveFrequencyY: 2.4,
-            waveAmplitude: 4,
-            secondaryWaveEnabled: false,
-            shadows: 1,
-            highlights: 4,
-            colorBrightness: 1,
-            colorSaturation: 6,
-            colorBlending: 7,
-            backgroundColor: "#0b0613",
-            backgroundAlpha: 1,
-            grainScale: 2,
-            grainSparsity: 0,
-            grainIntensity: 0,
-            grainSpeed: 0.3,
-            resolution: 1,
-            flowEnabled: false,
-            flowDistortionA: 1.1,
-            flowDistortionB: 1.6,
-            flowScale: 1.4,
-            flowEase: 0.4,
-            vignetteIntensity: 0.15,
-            vignetteRadius: 0.85,
-            shapeType: "plane",
-            cameraLock: true
-        });
-
-        neatCanvas.addEventListener("webglcontextlost", onNeatContextLost, { once: true });
-
-        // Only reveal it if the user is still on the fullscreen screen by
-        // the time the script finished loading and Neat finished setting up.
-        if (screenFullscreen.classList.contains("active")) {
-            auroraBg.classList.add("neat-mode");
-        }
-    } catch (error) {
-        console.warn("Neat init that bai, dung CSS aurora fallback:", error);
-        neatSupported = false;
-        neatInstance = null;
-    }
-}
-
-// Called every time the user closes fullscreen mode. Neat itself keeps
-// running in the background - only the canvas is hidden again.
-function hideNeat() {
-    auroraBg.classList.remove("neat-mode");
-}
-
-// If the WebGL context is lost for some reason (GPU driver reset, browser
-// reclaiming memory, etc.) we give up on Neat for the rest of the session
-// and fall back to the CSS aurora blobs permanently.
-function onNeatContextLost(event) {
-    event.preventDefault();
-    console.warn("Mat WebGL context, chuyen vinh vien ve CSS aurora fallback");
-    neatSupported = false;
-    destroyNeat();
-}
-
-function destroyNeat() {
-    if (neatInstance) {
-        try {
-            neatInstance.destroy();
-        } catch (error) {
-            // Ignore errors during cleanup.
-        }
-
-        neatInstance = null;
-    }
-
-    auroraBg.classList.remove("neat-mode");
-}
-
-function updateNeatColors(palette) {
-    if (!neatInstance) {
-        return;
-    }
-
-    try {
-        neatInstance.colors = buildNeatColors(palette);
-    } catch (error) {
-        // Ignore - the CSS fallback still shows the correct colors either way.
-    }
-}
-
-function loadTrack(e){const t=currentPlaylistTracks[e];if(!t)return;const n=allPlaylists.find((e=>e.id===currentPlaylistId)),a=t.artist||(n?n.title:"Cosmie");trackTitle.textContent=t.title,trackArtist.textContent=a,discArt.style.opacity="1",discArt.src=t.art,mpArt.src=t.art,mpArt.alt=t.title,mpTitle.textContent=t.title,mpArtist.textContent=a,audio.src=t.src,progressSlider.value=0,progressSlider.style.setProperty("--progress","0%"),currentTimeEl.textContent="0:00",durationTimeEl.textContent="0:00",loadLyricsForTrack(t)}function updatePlayState(){const e=!audio.paused;playIcon.style.display=e?"none":"block",pauseIcon.style.display=e?"block":"none",container.classList.toggle("playing",e),playPauseBtn.classList.toggle("is-playing",e),mpPlayIcon.style.display=e?"none":"block",mpPauseIcon.style.display=e?"block":"none"}function togglePlayPause(){audio.paused?audio.play().catch((()=>{})):audio.pause(),updatePlayState()}function playNext(){currentPlaylistTracks.length&&(currentTrackIndex=(currentTrackIndex+1)%currentPlaylistTracks.length,loadTrack(currentTrackIndex),audio.play().catch((()=>{})),updatePlayState())}function playPrev(){currentPlaylistTracks.length&&(currentTrackIndex=(currentTrackIndex-1+currentPlaylistTracks.length)%currentPlaylistTracks.length,loadTrack(currentTrackIndex),audio.play().catch((()=>{})),updatePlayState())}const lyricsToggleBtn=document.getElementById("lyricsToggleBtn"),lyricsPanel=document.getElementById("lyricsPanel"),lyricsList=document.getElementById("lyricsList");let currentLyrics=[],activeLyricIndex=-1,lyricsAvailable=!1,lyricsOpen=!1;function lrcPathFor(e){return e&&e.art?e.art.replace(/^img\//,"data/lyrics/").replace(/\.[a-zA-Z0-9]+$/,".lrc"):null}function parseLRC(e){const t=/\[(\d{1,2}):(\d{2})(?:[.:](\d{1,3}))?\]/g,n=e.split(/\r?\n/),a=[];for(const e of n){const n=[...e.matchAll(t)];if(!n.length)continue;const l=e.replace(t,"").trim();if(l)for(const e of n){const t=parseInt(e[1],10),n=parseInt(e[2],10),r=e[3]?parseInt(e[3].padEnd(3,"0").slice(0,3),10):0;a.push({time:60*t+n+r/1e3,text:l})}}return a.sort(((e,t)=>e.time-t.time))}function wrapLyricLine(e,t){if(t=t||38,e.length<=t)return[e];const n=e.split(" "),a=[];let l="";for(const e of n){const n=l?l+" "+e:e;n.length>t&&l?(a.push(l),l=e):l=n}return l&&a.push(l),a}function expandLyricsForDisplay(e,t){t=t||38;const n=[];for(let a=0;a<e.length;a++){const l=e[a],r=wrapLyricLine(l.text,t);if(r.length<=1){n.push({time:l.time,text:l.text,group:a});continue}const s=a+1<e.length?e[a+1].time:isFinite(audio.duration)&&audio.duration>l.time?audio.duration:l.time+4,c=r.reduce(((e,t)=>e+t.length),0);let i=s-l.time;i>0||(i=0);let o=0;for(const e of r)n.push({time:l.time+i*(o/c),text:e,group:a}),o+=e.length}return n}function renderAllLyrics(){lyricsList.innerHTML=currentLyrics.map(((e,t)=>`<p class="lyric-line" data-i="${t}">${esc(e.text)}</p>`)).join(""),lyricsList.querySelectorAll(".lyric-line").forEach((e=>{e.addEventListener("click",(()=>{const t=Number(e.dataset.i);currentLyrics[t]&&(audio.currentTime=currentLyrics[t].time)}))}))}function updateLyricsClasses(e){const g0=currentLyrics[e]?currentLyrics[e].group:e;lyricsList.querySelectorAll(".lyric-line").forEach(((t,n)=>{t.classList.remove("active","upcoming-1","upcoming-2","upcoming-3");const g=currentLyrics[n]?currentLyrics[n].group:n,a=g-g0;0===a?t.classList.add("active"):1===a?t.classList.add("upcoming-1"):2===a?t.classList.add("upcoming-2"):3===a&&t.classList.add("upcoming-3")}))}function applyLyricsWindow(e){const t=lyricsList.querySelectorAll(".lyric-line");if(!t.length)return;const n=Math.max(e,0),a=t[n]||t[0],panelH=lyricsPanel.clientHeight,total=lyricsList.scrollHeight,target=a.offsetTop+a.offsetHeight/2-panelH/2,maxOffset=Math.max(total-panelH,0),offset=Math.min(Math.max(target,0),maxOffset);lyricsList.style.transform=`translateY(-${offset}px)`}function alignLyricsPanel(){if(!lyricsOpen)return;const wrap=document.querySelector(".album-art-wrapper");if(!wrap)return;const artRect=wrap.getBoundingClientRect(),rowRect=fpContentRow.getBoundingClientRect(),artCenter=artRect.top+artRect.height/2-rowRect.top,panelH=lyricsPanel.clientHeight,marginTop=Math.max(artCenter-panelH/2,0);lyricsPanel.style.marginTop=marginTop+"px"}function setLyricsToggleVisible(e){lyricsToggleBtn.style.display=e?"flex":"none"}function closeLyricsView(){lyricsOpen=!1,screenFullscreen.classList.remove("lyrics-open"),lyricsToggleBtn.classList.remove("active"),lyricsToggleBtn.setAttribute("aria-pressed","false")}function openLyricsView(){lyricsAvailable&&(lyricsOpen=!0,screenFullscreen.classList.add("lyrics-open"),lyricsToggleBtn.classList.add("active"),lyricsToggleBtn.setAttribute("aria-pressed","true"),requestAnimationFrame((()=>{applyLyricsWindow(activeLyricIndex),alignLyricsPanel()})))}window.addEventListener("resize",(()=>{lyricsOpen&&requestAnimationFrame((()=>{applyLyricsWindow(activeLyricIndex),alignLyricsPanel()}))}));async function loadLyricsForTrack(e){currentLyrics=[],lyricsAvailable=!1,closeLyricsView(),setLyricsToggleVisible(!1);const t=lrcPathFor(e);if(t)try{const e=await fetch(t);if(!e.ok)throw new Error("no lrc");const n=await e.text();let a=parseLRC(n);if(!a.length)throw new Error("empty lrc");a=expandLyricsForDisplay(a,38),currentLyrics=a,lyricsAvailable=!0,activeLyricIndex=-1,renderAllLyrics(),requestAnimationFrame((()=>{updateLyricsClasses(-1),applyLyricsWindow(-1)})),setLyricsToggleVisible(!0)}catch(e){}}function updateActiveLyric(){if(!lyricsAvailable||!currentLyrics.length)return;const e=audio.currentTime;let t=-1;for(let n=0;n<currentLyrics.length;n++){if(!(currentLyrics[n].time<=e))break;t=n}if(t===activeLyricIndex)return;activeLyricIndex=t,updateLyricsClasses(t),lyricsOpen&&requestAnimationFrame((()=>{applyLyricsWindow(t)}))}lyricsToggleBtn.addEventListener("click",(()=>{lyricsOpen?closeLyricsView():openLyricsView()})),audio.addEventListener("timeupdate",updateActiveLyric),discArt.addEventListener("error",(()=>{discArt.style.opacity="0",applyAurora(FALLBACK_PALETTE)})),discArt.addEventListener("load",(()=>updateAurora(discArt))),playPauseBtn.addEventListener("click",togglePlayPause),mpPlayPause.addEventListener("click",togglePlayPause),prevBtn.addEventListener("click",playPrev),nextBtn.addEventListener("click",playNext),mpPrev.addEventListener("click",playPrev),mpNext.addEventListener("click",playNext),loopBtn.addEventListener("click",(()=>{isLooping=!isLooping,audio.loop=isLooping,loopBtn.classList.toggle("active",isLooping),loopBtn.setAttribute("aria-pressed",isLooping?"true":"false")})),audio.addEventListener("ended",(()=>{isLooping||playNext()}));let errCount=0;audio.addEventListener("error",(()=>{if(errCount++,errCount>=currentPlaylistTracks.length)return trackTitle.textContent="Không thể tải nhạc",trackArtist.textContent="Kiểm tra kết nối",void updatePlayState();trackTitle.textContent="Lỗi tải bài, đang chuyển…",setTimeout(playNext,800)})),audio.addEventListener("canplay",(()=>{errCount=0}));const savedVol=localStorage.getItem("zenSpaceVolume");function fmtTime(e){if(isNaN(e))return"0:00";const t=Math.floor(e/60),n=Math.floor(e%60);return`${t}:${n<10?"0":""}${n}`}function showScreen(e){Object.entries(contentScreenEls).forEach((([t,n])=>n.classList.toggle("active",t===e))),document.body.dataset.screen=e;const t="playlistDetail"===e?"playlists":e;navBtns.forEach((e=>e.classList.toggle("active",e.dataset.nav===t))),prevContentScreen=e,"search"===e&&setTimeout((()=>searchInput.focus()),80)}function openFullscreen() {
-    prevContentScreen = document.body.dataset.screen;
-    screenFullscreen.classList.add("active");
-    document.body.dataset.screen = "fullscreen";
-    initNeat();
-}
-
-function closeFullscreen() {
-    hideNeat();
-    screenFullscreen.classList.remove("active");
-    showScreen("fullscreen" !== prevContentScreen && prevContentScreen ? prevContentScreen : "home");
-}
-function esc(e){const t=document.createElement("div");return t.textContent=e??"",t.innerHTML}function shuffle(e){const t=e.slice();for(let e=t.length-1;e>0;e--){const n=Math.floor(Math.random()*(e+1));[t[e],t[n]]=[t[n],t[e]]}return t}async function loadAllPlaylists(){try{const e=await fetch(DATA_INDEX_URL);if(!e.ok)throw new Error("index missing");const t=await e.json();allPlaylists=await Promise.all(t.map((async e=>{const t=await fetch(`data/${e.file}`);if(!t.ok)throw new Error(`missing ${e.file}`);return t.json()}))),dataState="ready"}catch(e){console.error("Lỗi nạp playlist:",e),dataState="error"}renderSuggestions(),renderPlaylistsGrid(),renderSearch(searchInput.value.trim().toLowerCase())}null!=savedVol&&(volumeSlider.value=savedVol),audio.volume=volumeSlider.value,volumeSlider.style.setProperty("--vol",100*volumeSlider.value+"%"),volumeSlider.addEventListener("input",(e=>{audio.volume=e.target.value,e.target.style.setProperty("--vol",100*e.target.value+"%"),localStorage.setItem("zenSpaceVolume",e.target.value)})),audio.addEventListener("loadedmetadata",(()=>{durationTimeEl.textContent=fmtTime(audio.duration),progressSlider.max=Math.floor(audio.duration)})),audio.addEventListener("timeupdate",(()=>{if(!isDraggingProgress){progressSlider.value=Math.floor(audio.currentTime);const e=audio.duration?audio.currentTime/audio.duration*100:0;progressSlider.style.setProperty("--progress",e+"%"),currentTimeEl.textContent=fmtTime(audio.currentTime)}})),progressSlider.addEventListener("input",(()=>{isDraggingProgress=!0,currentTimeEl.textContent=fmtTime(progressSlider.value);const e=progressSlider.max?progressSlider.value/progressSlider.max*100:0;progressSlider.style.setProperty("--progress",e+"%")})),progressSlider.addEventListener("change",(()=>{audio.currentTime=progressSlider.value,isDraggingProgress=!1})),navBtns.forEach((e=>e.addEventListener("click",(()=>showScreen(e.dataset.nav))))),mpExpand.addEventListener("click",openFullscreen),mpLeft.addEventListener("click",openFullscreen),mpLeft.addEventListener("keydown",(e=>{"Enter"!==e.key&&" "!==e.key||openFullscreen()})),fpCollapse.addEventListener("click",closeFullscreen),detailBackBtn.addEventListener("click",(()=>showScreen("playlists")));const RECENT_KEY="cosmie_recent",RECENT_LIMIT=8;function getRecent(){try{const e=localStorage.getItem(RECENT_KEY),t=e?JSON.parse(e):[];return Array.isArray(t)?t:[]}catch{return[]}}function recordRecent(){const e=allPlaylists.find((e=>e.id===currentPlaylistId)),t=currentPlaylistTracks[currentTrackIndex];if(!e||!t)return;const n={playlistId:e.id,playlistTitle:e.title,trackIndex:currentTrackIndex,trackTitle:t.title,art:t.art,timestamp:Date.now()};let a=getRecent().filter((e=>!(e.playlistId===n.playlistId&&e.trackIndex===n.trackIndex)));a.unshift(n),a=a.slice(0,8);try{localStorage.setItem(RECENT_KEY,JSON.stringify(a))}catch{}renderRecent()}function renderRecent(){const e=getRecent();e.length?(recentListEl.innerHTML="",e.forEach((e=>{const t=document.createElement("button");t.type="button",t.className="tr-card",t.innerHTML=`<img class="tr-card-art" src="${e.art}" alt="${esc(e.trackTitle)}"><span class="tr-card-name">${esc(e.trackTitle)}</span><span class="tr-card-sub">${esc(e.playlistTitle)}</span>`,t.addEventListener("click",(()=>openPlaylistAndPlay(e.playlistId,e.trackIndex))),recentListEl.appendChild(t)}))):recentListEl.innerHTML='<p class="state-msg">Bạn chưa nghe bài nào. Khám phá playlist bên dưới nhé.</p>'}function renderSuggestions(){if("loading"===dataState)return void(suggestListEl.innerHTML='<p class="state-msg">Đang tải…</p>');if("error"===dataState)return void(suggestListEl.innerHTML='<p class="state-msg">Không tải được playlist. Hãy chạy qua local server (VSCode Live Server) rồi thử lại.</p>');if(!allPlaylists.length)return void(suggestListEl.innerHTML='<p class="state-msg">Chưa có playlist nào trong data/.</p>');const e=new Set(getRecent().map((e=>e.playlistId)));let t=allPlaylists.filter((t=>!e.has(t.id)));t.length||(t=allPlaylists.slice()),suggestListEl.innerHTML="",shuffle(t).slice(0,4).forEach((e=>suggestListEl.appendChild(mkPlCard(e))))}function renderPlaylistsGrid(){"loading"!==dataState?"error"!==dataState?allPlaylists.length?(allPlaylistsGrid.innerHTML="",allPlaylists.forEach((e=>allPlaylistsGrid.appendChild(mkPlCard(e))))):allPlaylistsGrid.innerHTML='<p class="state-msg">Chưa có playlist nào.</p>':allPlaylistsGrid.innerHTML='<p class="state-msg">Không tải được playlist. Hãy chạy qua local server (VSCode Live Server) rồi thử lại.</p>':allPlaylistsGrid.innerHTML='<p class="state-msg">Đang tải…</p>'}function mkPlCard(e){const t=document.createElement("button");return t.type="button",t.className="pl-card",t.innerHTML=`<img class="pl-card-cover" src="${e.cover}" alt="${esc(e.title)}"><span class="pl-card-name">${esc(e.title)}</span><span class="pl-card-count">${e.tracks.length} bài hát</span>`,t.addEventListener("click",(()=>openPlaylistDetail(e.id))),t}function openPlaylistDetail(e){const t=allPlaylists.find((t=>t.id===e));t?(currentDetailPl=e,detailCover.src=t.cover,detailCover.alt=t.title,detailTitle.textContent=t.title,detailCount.textContent=`${t.tracks.length} bài hát`,detailTrackList.innerHTML="",t.tracks.forEach(((n,a)=>{const l=document.createElement("button");l.type="button",l.className="tr-row",l.innerHTML=`\n        <span class="tr-row-num">${a+1}</span>\n        <img class="tr-row-art" src="${n.art}" alt="">\n        <span class="tr-row-info">\n          <span class="tr-row-title">${esc(n.title)}</span>\n          <span class="tr-row-artist">${esc(n.artist||t.title)}</span>\n        </span>\n        <span class="tr-row-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>`,l.addEventListener("click",(()=>openPlaylistAndPlay(e,a))),detailTrackList.appendChild(l)})),showScreen("playlistDetail"),contentScreenEls.playlistDetail.scrollTop=0):showScreen("playlists")}function openPlaylistAndPlay(e,t){const n=allPlaylists.find((t=>t.id===e));n&&n.tracks[t]&&(currentPlaylistId=e,currentPlaylistTracks=n.tracks,currentTrackIndex=t,loadTrack(currentTrackIndex),audio.play().catch((()=>{})),updatePlayState(),document.body.classList.add("has-track"))}playAllBtn.addEventListener("click",(()=>{currentDetailPl&&openPlaylistAndPlay(currentDetailPl,0)}));let lastKey=null;function renderSearch(e){if(!e){if("loading"===dataState)return void(searchResults.innerHTML='<p class="state-msg" style="padding:.5rem 0">Đang tải playlist…</p>');if(!allPlaylists.length)return void(searchResults.innerHTML='<p class="state-msg" style="padding:.5rem 0">Nhập tên bài hát hoặc playlist để tìm kiếm.</p>');searchResults.innerHTML='<p class="section-label" style="margin-top:.5rem">Tất cả Playlist</p>';const e=document.createElement("div");return e.className="pl-grid",allPlaylists.forEach((t=>e.appendChild(mkPlCard(t)))),void searchResults.appendChild(e)}const t=allPlaylists.filter((t=>t.title.toLowerCase().includes(e))),n=[];if(allPlaylists.forEach((t=>t.tracks.forEach(((a,l)=>{(a.title.toLowerCase().includes(e)||(a.artist||"").toLowerCase().includes(e))&&n.push({t:a,i:l,pl:t})})))),t.length||n.length){if(searchResults.innerHTML="",t.length){const e=document.createElement("p");e.className="section-label",e.style.marginTop=".5rem",e.textContent="Playlist";const n=document.createElement("div");n.className="pl-grid",t.forEach((e=>n.appendChild(mkPlCard(e)))),searchResults.appendChild(e),searchResults.appendChild(n)}if(n.length){const e=document.createElement("p");e.className="section-label",e.style.marginTop="1.5rem",e.textContent="Bài hát";const t=document.createElement("div");t.className="track-list",n.forEach((({t:e,i:n,pl:a})=>{const l=document.createElement("button");l.type="button",l.className="tr-row",l.innerHTML=`\n          <img class="tr-row-art" src="${e.art}" alt="">\n          <span class="tr-row-info">\n            <span class="tr-row-title">${esc(e.title)}</span>\n            <span class="tr-row-artist">${esc(e.artist||a.title)} · ${esc(a.title)}</span>\n          </span>\n          <span class="tr-row-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>`,l.addEventListener("click",(()=>openPlaylistAndPlay(a.id,n))),t.appendChild(l)})),searchResults.appendChild(e),searchResults.appendChild(t)}}else searchResults.innerHTML=`<div class="search-empty">Không tìm thấy kết quả cho "<strong>${esc(searchInput.value.trim())}</strong>"</div>`}audio.addEventListener("play",(()=>{const e=`${currentPlaylistId}::${currentTrackIndex}`;currentPlaylistId&&e!==lastKey&&(lastKey=e,recordRecent())})),searchInput.addEventListener("input",(()=>{const e=searchInput.value.trim();searchClear.style.display=e?"block":"none",renderSearch(e.toLowerCase())})),searchClear.addEventListener("click",(()=>{searchInput.value="",searchClear.style.display="none",renderSearch(""),searchInput.focus()})),renderRecent(),renderSuggestions(),renderPlaylistsGrid(),renderSearch(""),showScreen("home"),loadAllPlaylists();if("serviceWorker" in navigator){window.addEventListener("load",(()=>{navigator.serviceWorker.register("/service-worker.js").catch((()=>{}))}))}</script> 
+</html>

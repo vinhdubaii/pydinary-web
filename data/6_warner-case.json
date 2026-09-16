@@ -1,0 +1,19 @@
+{
+  "id": "warner-case",
+  "title": "Warner Case",
+  "cover": "img/warner-case/cover/cover.webp",
+  "tracks": [
+    {
+      "title": "summer on the inside",
+      "artist": "warner case, Jean Tonique & Max Kaluza",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782572858/warner_case_Jean_Tonique_Max_Kaluza_-_summer_on_the_inside_Lyric_Video_ggmkxk.mp3",
+      "art": "img/warner-case/summer-on-the-inside.webp"
+    },
+    {
+      "title": "i'll be there",
+      "artist": "warner case & Jean Tonique",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782573042/warner_case_Jean_Tonique_-_i_ll_be_there_sx17gp.mp3",
+      "art": "img/warner-case/ill-be-there.webp"
+    }
+  ]
+}

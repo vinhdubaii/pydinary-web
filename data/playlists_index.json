@@ -1,15 +1,15 @@
 [
   {
-    "id": "chill_study",
-    "file": "1_playlist_chill_study.json"
+    "id": "chill-study",
+    "file": "1_chill-study.json"
   },
   {
     "id": "lowg",
     "file": "2_lowg.json"
   },
   {
-    "id": "mahidu",
-    "file": "3_mahidu.json"
+    "id": "madihu",
+    "file": "3_madihu.json"
   },
   {
     "id": "hieuthuhai",
@@ -20,11 +20,11 @@
     "file": "5_yuyi.json"
   },
   {
-    "id": "warner case",
-    "file": "6_warner case.json"
+    "id": "warner-case",
+    "file": "6_warner-case.json"
   },
   {
-    "id": "terror_jr",
-    "file": "7_terror_jr.json"
+    "id": "terror-jr",
+    "file": "7_terror-jr.json"
   }
 ]

@@ -1,4 +1,4 @@
-const CACHE_VERSION = "pydinary-v1";
+const CACHE_VERSION = "pydinary-v3";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
@@ -6,6 +6,8 @@ const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 const PRECACHE_URLS = [
   "/",
   "/index.html",
+  "/css/style.css",
+  "/js/app.js",
   "/manifest.json",
   "/favicon.png",
   "/icon-192.png",
@@ -40,8 +42,45 @@ self.addEventListener("fetch", (event) => {
 
   if (req.method !== "GET") return;
 
-  // Audio (Cloudinary) — không can thiệp, để browser tự stream/tải, tránh chiếm dung lượng cache
+  // Audio (Cloudinary) — không can thiệp.
+  // Trình duyệt phát nhạc bằng Range request và nhận về 206 Partial Content;
+  // Cache API không lưu được 206, nên nếu cố cache sẽ vừa tốn dung lượng
+  // vừa làm hỏng tua bài. Để browser tự stream là đúng nhất.
   if (url.hostname.includes("cloudinary.com") || req.destination === "audio") {
+    return;
+  }
+
+  // HTML / điều hướng — network-first.
+  // Trước đây nhánh này là cache-first nên index.html bị "đóng băng":
+  // deploy bản mới mà máy cũ vẫn chạy bản cũ cho tới khi xoá cache thủ công.
+  if (req.mode === "navigate" || req.destination === "document") {
+    event.respondWith(
+      fetch(req)
+        .then((res) => {
+          if (res.ok) {
+            const copy = res.clone();
+            caches.open(STATIC_CACHE).then((cache) => cache.put("/index.html", copy));
+          }
+          return res;
+        })
+        .catch(() => caches.match(req).then((cached) => cached || caches.match("/index.html")))
+    );
+    return;
+  }
+
+  // style.css / app.js — network-first luôn, cùng lý do như trên.
+  if (url.origin === self.location.origin && /\.(css|js)$/.test(url.pathname)) {
+    event.respondWith(
+      fetch(req)
+        .then((res) => {
+          if (res.ok) {
+            const copy = res.clone();
+            caches.open(STATIC_CACHE).then((cache) => cache.put(req, copy));
+          }
+          return res;
+        })
+        .catch(() => caches.match(req))
+    );
     return;
   }
 
@@ -63,8 +102,12 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Ảnh cùng domain (img/) — cache-first, ảnh bìa hầu như không đổi
-  if (url.origin === self.location.origin && url.pathname.startsWith("/img/")) {
+  // Ảnh bìa (img/) và lời bài hát (data/lyrics/*.lrc) — cache-first,
+  // gần như không bao giờ đổi nội dung mà chỉ thêm file mới
+  if (
+    url.origin === self.location.origin &&
+    (url.pathname.startsWith("/img/") || url.pathname.endsWith(".lrc"))
+  ) {
     event.respondWith(
       caches.open(RUNTIME_CACHE).then(async (cache) => {
         const cached = await cache.match(req);
@@ -77,7 +120,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Còn lại (index.html, manifest, icon...) — cache-first, fallback network, có cập nhật lại cache
+  // Còn lại (manifest, icon...) — cache-first, fallback network
   event.respondWith(
     caches.match(req).then((cached) => {
       if (cached) return cached;
