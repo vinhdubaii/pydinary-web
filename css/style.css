@@ -1012,6 +1012,8 @@ body.has-track #miniPlayer {
     justify-content: center;
     color: rgba(255, 255, 255, .7);
     cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
     transition: background .2s, color .2s, opacity .25s ease
 }
 
@@ -1030,14 +1032,16 @@ body.has-track #miniPlayer {
     stroke-linejoin: round
 }
 
-/* Desktop (chuot that): an nut thu nho, chi hien khi di chuot len sat top */
-@media(hover:hover) and (pointer:fine) {
-    .fp-collapse {
-        opacity: 0;
-        pointer-events: none
-    }
+/* Chi hien nut thu nho khi co chuot that va dang di len sat top.
+   Tren thiet bi cam ung (mobile/tablet), class show-top-controls
+   khong bao gio duoc gan (xem app.js) nen nut luon an, chi dung
+   duoc bang gesture vuot xuong de thoat. */
+#screenFullscreen.show-top-controls .fp-collapse {
+    opacity: 1;
+    pointer-events: auto
+}
 
-    #screenFullscreen.show-top-controls .fp-collapse,
+@media(hover:hover) and (pointer:fine) {
     .fp-collapse:focus-visible {
         opacity: 1;
         pointer-events: auto
