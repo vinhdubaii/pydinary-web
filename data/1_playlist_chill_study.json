@@ -1,0 +1,25 @@
+{
+  "id": "chill_study",
+  "title": "Chill Study",
+  "cover": "img/chill_study/cover/cover.webp",
+  "tracks": [
+    {
+      "title": "Zen Mode",
+      "artist": "Cosmie · Vũ Trụ Tập Trung",
+      "src": "https://r2cdn.perplexity.ai/comet/zen_mode.mp3?v=1",
+      "art": "img/chill_study/zenmode.webp"
+    },
+    {
+      "title": "Minecraft Chill",
+      "artist": "Cosmie · Vũ Trụ Tập Trung",
+      "src": "https://res.cloudinary.com/dlrax6e5x/video/upload/v1781968858/cbcr9hzl1skvskvymoqx.mp3",
+      "art": "img/chill_study/minecraft.webp"
+    },
+    {
+      "title": "Tháp Rơi Tự Do",
+      "artist": "Cosmie · Vũ Trụ Tập Trung",
+      "src": "https://res.cloudinary.com/dlrax6e5x/video/upload/v1781969164/sg0yroojfa5fdujblz6u.mp3",
+      "art": "img/chill_study/thaproitudo.webp"
+    }
+  ]
+}

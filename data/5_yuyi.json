@@ -1,0 +1,67 @@
+{
+  "id": "yuyi",
+  "title": "鱼忆",
+  "cover": "img/yuyi/cover/cover.webp",
+  "tracks": [
+    {
+      "title": "海屿你 - 破碎版",
+      "artist": "鱼忆",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782195220/%E6%B5%B7%E5%B1%BF%E4%BD%A0_%E7%A0%B4%E7%A2%8E%E7%89%88_mhvtfp.mp3",
+      "art": "img/yuyi/hai yu ni po sui ban.webp"
+    },
+    {
+      "title": "开始懂了 - R&B版",
+      "artist": "鱼忆",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782195255/%E5%BC%80%E5%A7%8B%E6%87%82%E4%BA%86_R_B%E7%89%88_gq9riz.mp3",
+      "art": "img/yuyi/kai shi dong le rb ban.webp"
+    },
+    {
+      "title": "江南雪",
+      "artist": "鱼忆",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782195279/%E6%B1%9F%E5%8D%97%E9%9B%AA_wrek6b.mp3",
+      "art": "img/yuyi/jiang nan xue.webp"
+    },
+    {
+      "title": "菩萨蛮 - R&B版",
+      "artist": "鱼忆",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782195298/%E8%8F%A9%E8%90%A8%E9%B1%BC_R_B%E7%89%88_nbsvru.mp3",
+      "art": "img/yuyi/pu sa man rb ban.webp"
+    },
+    {
+      "title": "如果爱忘了 - R&B版",
+      "artist": "鱼忆",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782195317/%E5%A6%82%E6%9E%9C%E7%88%B1%E5%BF%98%E4%BA%86_R_B%E7%89%88_ao1x7h.mp3",
+      "art": "img/yuyi/ru guo ai wang le rb ban.webp"
+    },
+    {
+      "title": "忠孝东路走九遍",
+      "artist": "鱼忆",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782195349/%E5%BF%A0%E5%AD%9D%E4%B8%9C%E8%B7%AF%E8%B5%B0%E4%B9%9D%E9%81%8D_zdnd8u.mp3",
+      "art": "img/yuyi/zhong xiao dong lu zou jiu bian.webp"
+    },
+    {
+      "title": "迷人的危险",
+      "artist": "鱼忆",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782195391/%E8%BF%B7%E4%BA%BA%E7%9A%84%E5%8D%B1%E9%99%A9_xksq7l.mp3",
+      "art": "img/yuyi/mi ren de wei xian.webp"
+    },
+    {
+      "title": "等天光慢慢亮（在这无声的...",
+      "artist": "鱼忆",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782195408/%E7%AD%89%E5%A4%A9%E5%85%89%E6%85%A2%E6%85%A2%E4%BA%AE%E5%9C%A8%E8%BF%99%E6%97%A0%E5%A3%B0%E7%9A%84%E6%99%9A%E4%B8%8A_dkojsr.mp3",
+      "art": "img/yuyi/deng tian guang man man liang.webp"
+    },
+    {
+      "title": "落日太偏心",
+      "artist": "鱼忆",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782195426/%E8%90%BD%E6%97%A5%E5%A4%AA%E5%81%8F%E5%BF%83_dfpasm.mp3",
+      "art": "img/yuyi/luo ri tai pian xin.webp"
+    },
+    {
+      "title": "突然想起你",
+      "artist": "鱼忆",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1782195439/%E7%AA%81%E7%84%B6%E6%83%B3%E8%B5%B7%E4%BD%A0_geiruc.mp3",
+      "art": "img/yuyi/tu ran xiang qi ni.webp"
+    }
+  ]
+}
