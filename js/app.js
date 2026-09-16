@@ -822,3 +822,31 @@ if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/service-worker.js").catch((() => {}))
     }))
 }
+/* ---------------------------------------------------------------------
+ * 10. Fullscreen: hien fpCollapse khi di chuot len top (chi may co
+ * chuot that), + vuot xuong de thoat fullscreen tren mobile/tablet.
+ * ------------------------------------------------------------------ */
+window.matchMedia("(hover: hover) and (pointer: fine)").matches && (screenFullscreen.addEventListener("mousemove", (e => {
+    screenFullscreen.classList.toggle("show-top-controls", e.clientY < 90)
+})), screenFullscreen.addEventListener("mouseleave", (() => {
+    screenFullscreen.classList.remove("show-top-controls")
+})));
+let touchStartX = null,
+    touchStartY = null,
+    touchStartTarget = null;
+screenFullscreen.addEventListener("touchstart", (e => {
+    if (1 !== e.touches.length) return;
+    const t = e.touches[0];
+    touchStartX = t.clientX, touchStartY = t.clientY, touchStartTarget = e.target
+}), {
+    passive: !0
+}), screenFullscreen.addEventListener("touchend", (e => {
+    if (null === touchStartY) return;
+    if (touchStartTarget && touchStartTarget.closest("input, button")) return void (touchStartY = null);
+    const t = e.changedTouches[0],
+        dy = t.clientY - touchStartY,
+        dx = t.clientX - touchStartX;
+    dy > 90 && Math.abs(dx) < 60 && closeFullscreen(), touchStartY = null
+}), {
+    passive: !0
+});

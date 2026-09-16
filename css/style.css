@@ -998,7 +998,8 @@ body.has-track #miniPlayer {
 .fp-collapse {
     position: absolute;
     top: 1.5rem;
-    right: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 10;
     width: 40px;
     height: 40px;
@@ -1011,13 +1012,12 @@ body.has-track #miniPlayer {
     justify-content: center;
     color: rgba(255, 255, 255, .7);
     cursor: pointer;
-    transition: background .2s, color .2s, transform .2s
+    transition: background .2s, color .2s, opacity .25s ease
 }
 
 .fp-collapse:hover {
     background: rgba(255, 255, 255, .13);
-    color: #fff;
-    transform: scale(1.06)
+    color: #fff
 }
 
 .fp-collapse svg {
@@ -1030,60 +1030,22 @@ body.has-track #miniPlayer {
     stroke-linejoin: round
 }
 
-.fp-dev {
-    position: absolute;
-    bottom: 1.5rem;
-    right: 1.75rem;
-    z-index: 10;
-    font-size: .78rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, .27);
-    cursor: default;
-    transition: color .3s
-}
+/* Desktop (chuot that): an nut thu nho, chi hien khi di chuot len sat top */
+@media(hover:hover) and (pointer:fine) {
+    .fp-collapse {
+        opacity: 0;
+        pointer-events: none
+    }
 
-.fp-dev:hover {
-    color: rgba(255, 255, 255, .6)
-}
-
-.fp-lyrics-toggle {
-    display: none;
-    position: absolute;
-    top: 1.5rem;
-    right: 4.75rem;
-    z-index: 10;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, .07);
-    border: 1px solid rgba(255, 255, 255, .1);
-    backdrop-filter: blur(12px);
-    align-items: center;
-    justify-content: center;
-    color: rgba(255, 255, 255, .7);
-    cursor: pointer;
-    transition: background .2s, color .2s, transform .2s
-}
-
-.fp-lyrics-toggle:hover {
-    background: rgba(255, 255, 255, .13);
-    color: #fff;
-    transform: scale(1.06)
+    #screenFullscreen.show-top-controls .fp-collapse,
+    .fp-collapse:focus-visible {
+        opacity: 1;
+        pointer-events: auto
+    }
 }
 
 .fp-lyrics-toggle.active {
-    background: #fff;
-    color: #0b0613
-}
-
-.fp-lyrics-toggle svg {
-    width: 18px;
-    height: 18px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.9;
-    stroke-linecap: round;
-    stroke-linejoin: round
+    color: #fff
 }
 
 #screenFullscreen.lyrics-open .fp-content-row {
@@ -1173,6 +1135,10 @@ body.has-track #miniPlayer {
 
     .lyric-line {
         font-size: 1.1rem
+    }
+
+    .lyric-line.active {
+        transform: scale(1)
     }
 }
 
