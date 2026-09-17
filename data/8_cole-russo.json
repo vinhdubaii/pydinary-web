@@ -1,0 +1,13 @@
+{
+  "id": "cole-russo",
+  "title": "Cole Russo",
+  "cover": "img/cole-russo/cover/cover.webp",
+  "tracks": [
+    {
+      "title": "After Dark x Sweater Weather",
+      "artist": "Cole Russo",
+      "src": "https://res.cloudinary.com/djfdaqd8r/video/upload/v1789474572/3_Strikes_gnc2j9.mp3",
+      "art": "img/cole-russo/adxsw.webp"
+    }
+  ]
+}
